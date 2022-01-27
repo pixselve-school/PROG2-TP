@@ -3,4 +3,4 @@
 | Numéro du TP | Dossier correspondant                |
 |--------------|--------------------------------------|
 | 1            | [Vecteur](Vecteur)                   |
-| 2            | [VecteurGenerique](VecteurGenerique) |
+| 1.b          | [VecteurGenerique](VecteurGenerique) |
