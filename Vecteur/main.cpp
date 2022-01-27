@@ -96,7 +96,13 @@ void enter_and_display() {
 /** \brief Programme principal */
 int main() {
 
-    simple_input();
+    Vecteur * vecteur = new Vecteur(3);
+    vecteur->set(0, 1);
+
+    Vecteur * vecteur2 = new Vecteur(3);
+    vecteur2->set(0, 1);
+    delete vecteur;
+    delete vecteur2;
 
     return 0;
 }
