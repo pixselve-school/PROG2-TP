@@ -9,7 +9,7 @@
 class Vecteur {
 private :
     float *tab;
-    int size;
+    size_t size;
 
     void copy(const Vecteur &vecteur);
 
@@ -19,7 +19,7 @@ public :
      * @param size la taille du vecteur (3 par défaut)
      * @param default_value la valeur d'initialisation des composantes (0 par défaut)
      */
-    explicit Vecteur(int size = 3, float default_value = 0.0);
+    explicit Vecteur(size_t size = 3, float default_value = 0.0);
 
     /**
      * Destructeur
@@ -36,21 +36,21 @@ public :
      * Permet de connaître le nombre de dimensions du vecteur
      * @return le nombre de dimensions du vecteur
      */
-    int dimensions() const;
+    size_t dimensions() const;
 
     /**
      * Permet de consulter la valeur d'une coordonnée
      * @param i la coordonnée
      * @return la valeur de la ieme coordonnée
      */
-    float get(int i) const;
+    float get(size_t i) const;
 
     /**
      * Permet de changer la valeur d'une coordonnée.
      * @param i la coordonnée
      * @param value la nouvelle valeur
      */
-    void set(int i, float value);
+    void set(size_t i, float value);
 
     /**
      * Redéfinition de l’opérateur d’affectation
@@ -64,7 +64,7 @@ public :
      * @param vecteur le vecteur à ajouter
      * @return le résultat de l’addition
      */
-    Vecteur &operator+(const Vecteur &vecteur);
+    Vecteur operator+(const Vecteur &vecteur) const;
 
 
     /**
@@ -79,7 +79,7 @@ public :
      * @param i la coordonnée
      * @return la valeur de la ieme coordonnée
      */
-    float &operator[](int i) const;
+    const float &operator[](int i) const;
 
 private :
     // méthodes privées d'implémentation (si besoin)

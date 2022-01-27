@@ -5,24 +5,24 @@ relatives à la classe vecteur et aux fonctionnalités la concernant */
 #include <iostream>
 #include "vecteur.h"
 
-Vecteur::Vecteur(int size, float default_value) : tab(new float[size]), size(size) {
+Vecteur::Vecteur(size_t size, float default_value) : tab(new float[size]), size(size) {
     assert(size > 0);
-    std::cout << "🐣 Construction d'un vecteur de taille " << size << "\n";
+    std::cout << "🐣 Construction d'un vecteur de taille " << size << std::endl;
     for (int i = 0; i < size; ++i) {
         tab[i] = default_value;
     }
 }
 
-int Vecteur::dimensions() const {
+size_t Vecteur::dimensions() const {
     return size;
 }
 
-float Vecteur::get(int i) const {
+float Vecteur::get(size_t i) const {
     assert(i < size);
     return tab[i];
 }
 
-void Vecteur::set(int i, float value) {
+void Vecteur::set(size_t i, float value) {
     assert(i < size);
     tab[i] = value;
 }
@@ -30,7 +30,7 @@ void Vecteur::set(int i, float value) {
 Vecteur::~Vecteur() {
     std::cout << "🗑 Destruction du vecteur ";
     afficherVecteur(this, std::cout);
-    std::cout << "\n";
+    std::cout << std::endl;
     delete[] tab;
 }
 
@@ -54,13 +54,9 @@ void Vecteur::copy(const Vecteur &vecteur) {
     }
 }
 
-Vecteur &Vecteur::operator+(const Vecteur &vecteur) {
+Vecteur Vecteur::operator+(const Vecteur &vecteur) const {
     assert(size == vecteur.size);
-    auto *result = new Vecteur(size);
-    for (int i = 0; i < size; ++i) {
-        result->tab[i] = tab[i] + vecteur.tab[i];
-    }
-    return *result;
+    return add(this, &vecteur);
 }
 
 float &Vecteur::operator[](int i) {
@@ -68,7 +64,7 @@ float &Vecteur::operator[](int i) {
     return tab[i];
 }
 
-float &Vecteur::operator[](int i) const {
+const float &Vecteur::operator[](int i) const {
     assert(i < size);
     return tab[i];
 }
