@@ -2,10 +2,7 @@
 #include <iostream>
 #include "pile.hh"
 
-Pile::Pile() : m_max_size(10) {
-    m_elements = new std::string[m_max_size];
-    m_top = m_elements;
-}
+Pile::Pile(size_t max_size) : m_max_size(max_size), m_elements(new std::string[max_size]), m_top(m_elements) {}
 
 Pile::~Pile() {
     delete[] m_elements;

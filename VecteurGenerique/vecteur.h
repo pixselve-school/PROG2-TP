@@ -7,6 +7,7 @@
 
 #include <cstdio>
 #include <iostream>
+#include <cassert>
 
 // Déclaration de la classe vecteur
 template<class T>
@@ -93,20 +94,6 @@ public :
         return *this;
     }
 
-    /**
-     * Redéfinition de l’opérateur d’addition
-     * @param vecteur le vecteur à ajouter
-     * @return le résultat de l’addition
-     */
-    Vecteur operator+(const Vecteur &vecteur) const {
-        assert(this->size == vecteur.size);
-        Vecteur<T> result(this->size);
-        for (size_t i = 0; i < this->size; i++) {
-            result.tab[i] = this->tab[i] + vecteur.tab[i];
-        }
-        return result;
-    }
-
 
     /**
      * Permet de modifier la valeur d'une coordonnée
@@ -131,6 +118,24 @@ public :
 private :
     // méthodes privées d'implémentation (si besoin)
 };
+
+/**
+ * Redéfinition de l’opérateur d’addition
+ * @param vecteur le vecteur à ajouter
+ * @return le résultat de l’addition
+ */
+template<class T1, class T2>
+Vecteur<T1> operator+(const Vecteur<T1> &vecteur1, const Vecteur<T2> &vecteur2) {
+    assert(vecteur1.dimensions() == vecteur2.dimensions());
+    Vecteur<T1> result(vecteur1.dimensions());
+    for (size_t i = 0; i < result.dimensions(); i++) {
+        result.set(i, vecteur1.get(i) + vecteur2.get(i));
+    }
+    return result;
+}
+
+
+
 
 /**
  * Fonction qui affiche le vecteur v dans le flux de sortie out.

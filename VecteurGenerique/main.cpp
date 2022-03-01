@@ -64,8 +64,15 @@ void produit_scalaire_int_float() {
 
 }
 
+void add_int_and_float() {
+    Vecteur<int> vecteur1(1, 3.0);
+    Vecteur<float> vecteur2(1, 3);
+    Vecteur<int> result = vecteur1 + vecteur2;
+    std::cout << result;
+}
+
 int main() {
-    produit_scalaire_int_float();
+    add_int_and_float();
 
     return 0;
 }
