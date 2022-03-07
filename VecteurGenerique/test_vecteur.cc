@@ -297,7 +297,7 @@ TEST(TestVecteur, q11_OperateurIndexationModification)
    pour tester q14 : Commenter cette fonction ; DÉcommenter les suivantes
    ========================================================================*/
 
-/*
+
 TEST(TestVecteur, q12_ProduitScalaire)
 {
   unsigned int dim1(15);
@@ -329,8 +329,8 @@ TEST(TestVecteur, q12_ProduitScalaire)
   }
   ASSERT_EQ(expected_4, psint);
 }
-*/
-/*
+
+
 TEST(TestVecteur, q14_ProduitScalaire)
 {
   unsigned int dim1(15);
@@ -411,7 +411,7 @@ TEST(TestVecteur, q14_affectation)
   v1 = v2;
   check_dim_values_with_opr(v1, dim2, expected_2);
 }
-*/
+
 
 int main(int argc, char** argv)
 {

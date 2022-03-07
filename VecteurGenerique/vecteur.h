@@ -24,13 +24,22 @@ private :
         }
     }
 
+    template<class V>
+    void copy(const Vecteur<V> &vecteur) {
+        this->size = vecteur.size;
+        this->tab = new T[this->size];
+        for (size_t i = 0; i < this->size; i++) {
+            this->tab[i] = vecteur.tab[i];
+        }
+    }
+
 public :
     /**
      * Constructeur
      * @param size la taille du vecteur (3 par défaut)
      * @param default_value la valeur d'initialisation des composantes (0 par défaut)
      */
-    Vecteur(size_t size = 3, T default_value = T{}) : size(size), tab(new T[size]) {
+    explicit Vecteur(size_t size = 3, T default_value = T{}) : size(size), tab(new T[size]) {
         assert(size > 0);
         for (size_t i = 0; i < size; i++) {
             this->tab[i] = default_value;
@@ -51,6 +60,17 @@ public :
     Vecteur(const Vecteur &vecteur) : size(vecteur.size), tab(new T[vecteur.size]) {
         for (size_t i = 0; i < this->size; i++) {
             this->tab[i] = vecteur.tab[i];
+        }
+    }
+
+    /**
+     * Constructeur de copie
+     * @param vecteur le vecteur à copier
+     */
+    template<class V>
+    explicit Vecteur(const Vecteur<V> &vecteur) : size(vecteur.dimensions()), tab(new T[vecteur.dimensions()]) {
+        for (size_t i = 0; i < this->size; i++) {
+            this->tab[i] = vecteur.get(i);
         }
     }
 
@@ -94,6 +114,23 @@ public :
         return *this;
     }
 
+    /**
+     * Redéfinition de l’opérateur d’affectation
+     * @param vecteur le vecteur à affecter
+     * @return le vecteur affecté
+     */
+    template<class V>
+    Vecteur &operator=(const Vecteur<V> &vecteur) {
+        this->size = vecteur.dimensions();
+        delete this->tab;
+        this->tab = new T[vecteur.dimensions()];
+
+        for (int i = 0; i < vecteur.dimensions(); ++i) {
+            this->tab[i] = vecteur.get(i);
+        }
+        return *this;
+    }
+
 
     /**
      * Permet de modifier la valeur d'une coordonnée
@@ -133,8 +170,6 @@ Vecteur<T1> operator+(const Vecteur<T1> &vecteur1, const Vecteur<T2> &vecteur2) 
     }
     return result;
 }
-
-
 
 
 /**
