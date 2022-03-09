@@ -136,6 +136,7 @@ public:
         return os;
     }
 
+
     /**
      * Destructor of the list
      */
@@ -150,8 +151,9 @@ public:
     class const_iterator {
     private:
         friend class Liste<T>;
-        Chainon *liste;
-        Chainon * sentinel;
+
+        const Chainon *liste;
+        const Chainon *sentinel;
 
         explicit const_iterator(const Chainon *liste, const Chainon *sentinel) : liste(liste), sentinel(sentinel) {}
 
@@ -198,12 +200,12 @@ public:
         }
 
         bool operator==(const const_iterator &other) {
-            return this->liste == other.liste && this->index == other.index;
+            return this->current == other.current && this->sentinel == other.sentinel;
         }
 
 
         bool operator!=(const const_iterator &other) {
-            return this->liste != other.liste || this->index != other.index;
+            return this->current != other.current || this->sentinel != other.sentinel;
         }
 
     };
@@ -211,10 +213,11 @@ public:
     class iterator {
     private:
         friend class Liste<T>;
-        Chainon *liste;
-        Chainon * sentinel;
 
-        explicit iterator(Chainon *liste, Chainon *sentinel) : liste(liste), sentinel(sentinel) {}
+        Chainon *current;
+        Chainon *sentinel;
+
+        explicit iterator(Chainon *liste, Chainon *sentinel) : current(liste), sentinel(sentinel) {}
 
     public:
 
@@ -224,8 +227,8 @@ public:
           * @pre l ' itérateur désigne une position valide dans la liste (!= end()) * @return nouvelle valeur de l ' itérateur
           */
         iterator &operator++() {
-            assert(liste != sentinel);
-            liste = liste->next();
+            assert(current != sentinel);
+            current = current->next();
             return *this;
         }
 
@@ -234,8 +237,8 @@ public:
         * @pre l ' itérateur ne désigne pas l 'élément de tête (!= begin()) * @return nouvelle valeur de l ' itérateur
         */
         iterator &operator--() {
-            assert(liste != sentinel->next());
-            liste = liste->previous();
+            assert(current != sentinel->next());
+            current = current->previous();
             return *this;
         }
 
@@ -243,9 +246,9 @@ public:
         * @pre l ' itérateur désigne une position valide dans la liste (!= end())
         * @return valeur de l 'élément désigné par l ' itérateur
         */
-        const T &operator*() const {
-            assert(liste != sentinel);
-            return liste->data();
+        T &operator*() const {
+            assert(current != sentinel);
+            return current->data();
 
         }
 
@@ -253,19 +256,21 @@ public:
         * @pre l ' itérateur désigne une position valide (!= end())
         * @return adresse de l 'élément désigné par l ' itérateur
         */
-        const T *operator->() const {
-            assert(liste != sentinel);
-            return &(liste->data());
+        T *operator->() const {
+            assert(current != sentinel);
+            return &(current->data());
         }
 
         bool operator==(const iterator &other) {
-            return this->liste == other.liste && this->sentinel == other.sentinel;
+            return this->current == other.current && this->sentinel == other.sentinel;
         }
 
 
         bool operator!=(const iterator &other) {
-            return this->liste != other.liste || this->sentinel != other.sentinel;
+            return this->current != other.current || this->sentinel != other.sentinel;
         }
+
+
     };
 
 
@@ -297,6 +302,56 @@ public:
         return iterator(m_list, m_list);
     }
 
+    /**
+     * Insère un élément avant une position
+     * @param position iterateur désignant une position
+     * @param x élément à insérer
+     * @return un itérateur sur l'élément inséré
+     */
+        iterator insert(iterator position, const T &x) {
+            auto *chainon = new Chainon(x);
+
+            position.current->insertBefore(chainon);
+
+            return --position;
+        }
+
+    /**
+     * Supprime un élément
+     * @param position iterateur désignant un élément à supprimer
+     * @return un itérateur sur l'élément suivant
+     */
+    iterator erase(iterator position) {
+        assert(position.sentinel == m_list);
+        assert(position.current != position.sentinel);
+
+        assert(empty());
+        auto temp = position.current;
+        position.current = position.current->next();
+        temp->detach();
+
+        delete temp;
+        return position;
+    }
+
 };
+
+/**
+ * cherche un élément dans la séquence [premier, dernier[
+ * @param premier début de la séquence
+ * @param dernier fin de la séquence
+ * @param x élément à rechercher
+ * @return un itérateur qui correspond à x, ou end() si x n'est pas trouvé
+ */
+template<class InputIterator, class T>
+InputIterator find(InputIterator premier, InputIterator dernier, const T &x) {
+    for (; premier != dernier; ++premier) {
+        if (*premier == x) {
+            return premier;
+        }
+    }
+    return dernier;
+}
+
 
 #endif //LISTE_LISTE_H
