@@ -15,9 +15,12 @@ template<typename T>
 class Liste {
 protected:
     typedef DataStructure::cyclicNode<T> Chainon;
+private:
+    Chainon *m_list;
+    int m_size;
 
 public:
-    explicit Liste() : m_size(0) {}
+    explicit Liste() : m_size(0), m_list(new Chainon()) {}
 
     /**
      * Check if the list is empty
@@ -42,7 +45,7 @@ public:
      */
     T &front() const {
         assert(!empty());
-        return m_list->data();
+        return m_list->next()->data();
     }
 
     /**
@@ -62,7 +65,7 @@ public:
  */
     T &front() {
         assert(!empty());
-        return m_list->data();
+        return m_list->next()->data();
     }
 
     /**
@@ -81,12 +84,7 @@ public:
      */
     void push_front(const T &element) {
         auto newNode = new Chainon(element);
-        if (empty()) {
-            m_list = newNode;
-        } else {
-            newNode->insertAfter(m_list);
-            m_list = newNode;
-        }
+        m_list->insertAfter(newNode);
         m_size++;
     }
 
@@ -96,11 +94,7 @@ public:
      */
     void push_back(const T &element) {
         auto newNode = new Chainon(element);
-        if (empty()) {
-            m_list = newNode;
-        } else {
-            m_list->previous()->insertAfter(newNode);
-        }
+        m_list->insertBefore(newNode);
         m_size++;
     }
 
@@ -111,8 +105,8 @@ public:
     void pop_front() {
         assert(!empty());
         auto temp = m_list->next();
-        m_list->detach();
-        m_list = temp;
+        m_list->next()->detach();
+        delete temp;
         m_size--;
     }
 
@@ -122,13 +116,15 @@ public:
      */
     void pop_back() {
         assert(!empty());
+        auto temp = m_list->previous();
         m_list->previous()->detach();
+        delete temp;
         m_size--;
     }
 
     friend std::ostream &operator<<(std::ostream &os, const Liste &liste) {
         os << "[";
-        auto current_list = liste.m_list;
+        auto current_list = liste.m_list->next();
         for (int i = 0; i < liste.size(); ++i) {
             os << current_list->data();
             if (i < liste.size() - 1) {
@@ -145,9 +141,7 @@ public:
      */
     virtual ~Liste() {
         for (int i = 0; i < m_size; ++i) {
-            auto temp = m_list;
             pop_front();
-            delete temp;
         }
         delete m_list;
     }
@@ -156,12 +150,10 @@ public:
     class const_iterator {
     private:
         friend class Liste<T>;
-
         Chainon *liste;
-        size_t index;
-        size_t size;
+        Chainon * sentinel;
 
-        explicit const_iterator(Chainon *liste, size_t size, size_t index) : liste(liste), index(index), size(size) {}
+        explicit const_iterator(const Chainon *liste, const Chainon *sentinel) : liste(liste), sentinel(sentinel) {}
 
     public:
 
@@ -171,9 +163,8 @@ public:
         * @pre l ' itérateur désigne une position valide dans la liste (!= end()) * @return nouvelle valeur de l ' itérateur
         */
         const_iterator &operator++() {
-            assert(index != size);
+            assert(liste != sentinel);
             liste = liste->next();
-            index++;
             return *this;
         }
 
@@ -182,9 +173,8 @@ public:
         * @pre l ' itérateur ne désigne pas l 'élément de tête (!= begin()) * @return nouvelle valeur de l ' itérateur
         */
         const_iterator &operator--() {
-            assert(index != 0);
+            assert(liste != sentinel->next());
             liste = liste->previous();
-            index--;
             return *this;
         }
 
@@ -193,7 +183,7 @@ public:
         * @return valeur de l 'élément désigné par l ' itérateur
         */
         const T &operator*() const {
-            assert(index != size);
+            assert(liste != sentinel);
             return liste->data();
 
         }
@@ -203,8 +193,8 @@ public:
         * @return adresse de l 'élément désigné par l ' itérateur
         */
         const T *operator->() const {
-            assert(index != size);
-            return liste->data();
+            assert(liste != sentinel);
+            return &(liste->data());
         }
 
         bool operator==(const const_iterator &other) {
@@ -221,24 +211,21 @@ public:
     class iterator {
     private:
         friend class Liste<T>;
-
         Chainon *liste;
-        size_t index;
-        size_t size;
+        Chainon * sentinel;
 
-        explicit iterator(Chainon *liste, size_t size, size_t index) : liste(liste), index(index), size(size) {}
+        explicit iterator(Chainon *liste, Chainon *sentinel) : liste(liste), sentinel(sentinel) {}
 
     public:
 
         /**
-         * opérateur ++ préfixé
-        * positionne l ' itérateur sur l 'élément suivant
-        * @pre l ' itérateur désigne une position valide dans la liste (!= end()) * @return nouvelle valeur de l ' itérateur
-        */
+           * opérateur ++ préfixé
+          * positionne l ' itérateur sur l 'élément suivant
+          * @pre l ' itérateur désigne une position valide dans la liste (!= end()) * @return nouvelle valeur de l ' itérateur
+          */
         iterator &operator++() {
-            assert(index != size);
+            assert(liste != sentinel);
             liste = liste->next();
-            index++;
             return *this;
         }
 
@@ -247,38 +234,37 @@ public:
         * @pre l ' itérateur ne désigne pas l 'élément de tête (!= begin()) * @return nouvelle valeur de l ' itérateur
         */
         iterator &operator--() {
-            assert(index != 0);
+            assert(liste != sentinel->next());
             liste = liste->previous();
-            index--;
             return *this;
         }
 
-        /** opérateur d'indirection *
+        /** opérateur d'indirection * (accès NON modifiable)
         * @pre l ' itérateur désigne une position valide dans la liste (!= end())
         * @return valeur de l 'élément désigné par l ' itérateur
         */
-        T &operator*() {
-            assert(index != size);
+        const T &operator*() const {
+            assert(liste != sentinel);
             return liste->data();
 
         }
 
-        /** opérateur d'indirection −>
+        /** opérateur d'indirection −> (accès NON modifiable)
         * @pre l ' itérateur désigne une position valide (!= end())
         * @return adresse de l 'élément désigné par l ' itérateur
         */
-        T *operator->() {
-            assert(index != size);
-            return liste->data();
+        const T *operator->() const {
+            assert(liste != sentinel);
+            return &(liste->data());
         }
 
         bool operator==(const iterator &other) {
-            return this->liste == other.liste && this->index == other.index;
+            return this->liste == other.liste && this->sentinel == other.sentinel;
         }
 
 
         bool operator!=(const iterator &other) {
-            return this->liste != other.liste || this->index != other.index;
+            return this->liste != other.liste || this->sentinel != other.sentinel;
         }
     };
 
@@ -287,34 +273,30 @@ public:
      * @return un itérateur sur le début de liste cet itérateur désigne le premier élément de la liste si elle n'est pas vide ; sinon , il désigne la même position que l 'itérateur renvoyé par end()
      */
     const_iterator begin() const {
-        return const_iterator(m_list, m_size, 0);
+        return const_iterator(m_list->next(), m_list);
     }
 
     /**
      * @return renvoie un itérateur qui désigne une position située après le dernier élément
      */
     const_iterator end() const {
-        return const_iterator(m_list, m_size, m_size);
+        return const_iterator(m_list, m_list);
     }
 
     /**
  * @return un itérateur sur le début de liste cet itérateur désigne le premier élément de la liste si elle n'est pas vide ; sinon , il désigne la même position que l 'itérateur renvoyé par end()
  */
-    iterator begin()  {
-        return iterator(m_list, m_size, 0);
+    iterator begin() {
+        return iterator(m_list->next(), m_list);
     }
 
     /**
      * @return renvoie un itérateur qui désigne une position située après le dernier élément
      */
     iterator end() {
-        return iterator(m_list, m_size, m_size);
+        return iterator(m_list, m_list);
     }
 
-
-private:
-    Chainon *m_list;
-    int m_size;
 };
 
 #endif //LISTE_LISTE_H
