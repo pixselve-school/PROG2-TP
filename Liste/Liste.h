@@ -344,6 +344,8 @@ public:
      * @return un itérateur sur l'élément inséré
      */
     iterator insert(iterator position, const T &x) {
+        assert(position.sentinel == m_list);
+
         auto *chainon = new Chainon(x);
 
         position.current->insertBefore(chainon);
@@ -362,7 +364,7 @@ public:
         assert(position.sentinel == m_list);
         assert(position.current != position.sentinel);
 
-        assert(empty());
+        assert(!empty());
         auto temp = position.current;
         position.current = position.current->next();
         temp->detach();

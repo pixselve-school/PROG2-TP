@@ -29,7 +29,7 @@ TEST(TestList, q311Find)
   std::string x("A");
   Liste<std::string>::iterator it1(liste.begin());
   Liste<std::string>::iterator it2(liste.end());
-  Liste<std::string>::iterator it3(find(it1, it2, x));//3.63));
+  Liste<std::string>::iterator it3(::find(it1, it2, x));//3.63));
   EXPECT_TRUE(
 	      it3 != it2
 	      )
@@ -45,13 +45,13 @@ TEST(TestList, q311Find)
 		   *it3, x
 		   ) << "it3 devrait pointer sur " << x;
   x = "666666";
-  it3=find(it1, it2, x);//6.05);
+  it3=::find(it1, it2, x);//6.05);
   EXPECT_NE(it3, it2) << "Les 2 itérateurs devraient être différents";
   EXPECT_EQ(*it3,x) << "it3 devrait pointer sur " << x;
   ++it1;
   ++it1;
   x="FFFFFF";
-  it3=find(it1, it2, x);//2.42);
+  it3=::find(it1, it2, x);//2.42);
   EXPECT_EQ(it3,it2);
 }
 
