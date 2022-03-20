@@ -14,15 +14,6 @@ FetchContent_Declare(
 set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
 FetchContent_MakeAvailable(googletest)
 
-add_executable(Liste main.cpp copier.h cyclicNode.h Liste.h)
-add_executable(ListeTest copier.h cyclicNode.h Liste.h test/common_p2.h
-        test/test_p4.cc
-        test/common_p1.h
-        test/test_p32.cc
-        test/common_p1.cc
-        test/common_p24.h
-        test/test_p2.cc
-        test/test_p24.cc
-        test/test_p3.cc
-        test/test_p1.cc)
+add_executable(Liste main.cpp copier.h cyclicNode.h Liste.h copier.h)
+add_executable(ListeTest copier.h cyclicNode.h Liste.h test/common_p2.h test/common_p1.h test/common_p1.cc test/common_p24.h test/test_p1.cc test/test_p2.cc test/test_p3.cc test/test_p4.cc test/test_p24.cc test/test_p32.cc)
 target_link_libraries(ListeTest gtest_main)

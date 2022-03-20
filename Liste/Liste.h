@@ -20,7 +20,30 @@ private:
     int m_size;
 
 public:
+    /**
+     * Constructeur par défaut
+     */
     explicit Liste() : m_size(0), m_list(new Chainon()) {}
+
+    /**
+     * constructeur de copie qui initialise l'instance courante avec une copie profonde de la liste paramètre.
+     * @param existingList la liste à copier
+     */
+    Liste(const Liste<T> &existingList) : m_size(0), m_list(new Chainon()) {
+        for (auto iterator = existingList.begin(); iterator != existingList.end(); ++iterator) {
+            this->push_back(*iterator);
+        }
+    }
+
+    /**
+ * Destructor of the list
+ */
+    virtual ~Liste() {
+        for (int i = 0; i < m_size; ++i) {
+            pop_front();
+        }
+        delete m_list;
+    }
 
     /**
      * Check if the list is empty
@@ -122,29 +145,42 @@ public:
         m_size--;
     }
 
-    friend std::ostream &operator<<(std::ostream &os, const Liste &liste) {
-        os << "[";
-        auto current_list = liste.m_list->next();
-        for (int i = 0; i < liste.size(); ++i) {
-            os << current_list->data();
-            if (i < liste.size() - 1) {
-                os << ", ";
-            }
-            current_list = current_list->next();
+    Liste<T> operator+(const Liste<T> &other) {
+        Liste<T> result;
+        for (auto iterator = begin(); iterator != end(); ++iterator) {
+            result.push_back(*iterator);
         }
-        os << "]";
-        return os;
+        for (auto iterator = other.begin(); iterator != other.end(); ++iterator) {
+            result.push_back(*iterator);
+        }
+        return result;
+    }
+
+    bool operator==(const Liste<T> &other) {
+        return this->m_list == other.m_list;
+    }
+
+    Liste<T> &operator=(const Liste<T> &other) {
+        if (this->operator==(other)) return *this;
+        while (!empty()) {
+            this->pop_back();
+        }
+        for (auto iter = other.begin(); iter != other.end(); ++iter) {
+            push_back(*iter);
+        }
+        return *this;
     }
 
 
-    /**
-     * Destructor of the list
-     */
-    virtual ~Liste() {
-        for (int i = 0; i < m_size; ++i) {
-            pop_front();
+    friend std::ostream &operator<<(std::ostream &os, const Liste &liste) {
+        os << "<";
+        auto current_list = liste.m_list->next();
+        for (int i = 0; i < liste.size(); ++i) {
+            os << current_list->data() << " ";
+            current_list = current_list->next();
         }
-        delete m_list;
+        os << ">";
+        return os;
     }
 
 
@@ -200,12 +236,12 @@ public:
         }
 
         bool operator==(const const_iterator &other) {
-            return this->current == other.current && this->sentinel == other.sentinel;
+            return this->liste == other.liste && this->sentinel == other.sentinel;
         }
 
 
         bool operator!=(const const_iterator &other) {
-            return this->current != other.current || this->sentinel != other.sentinel;
+            return this->liste != other.liste || this->sentinel != other.sentinel;
         }
 
     };
@@ -261,12 +297,11 @@ public:
             return &(current->data());
         }
 
-        bool operator==(const iterator &other) {
+        bool operator==(const iterator &other) const {
             return this->current == other.current && this->sentinel == other.sentinel;
         }
 
-
-        bool operator!=(const iterator &other) {
+        bool operator!=(const iterator &other) const {
             return this->current != other.current || this->sentinel != other.sentinel;
         }
 
@@ -308,13 +343,15 @@ public:
      * @param x élément à insérer
      * @return un itérateur sur l'élément inséré
      */
-        iterator insert(iterator position, const T &x) {
-            auto *chainon = new Chainon(x);
+    iterator insert(iterator position, const T &x) {
+        auto *chainon = new Chainon(x);
 
-            position.current->insertBefore(chainon);
+        position.current->insertBefore(chainon);
 
-            return --position;
-        }
+        m_size++;
+
+        return --position;
+    }
 
     /**
      * Supprime un élément
@@ -331,6 +368,8 @@ public:
         temp->detach();
 
         delete temp;
+
+        m_size--;
         return position;
     }
 
