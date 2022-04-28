@@ -12,6 +12,7 @@ public:
 
     virtual void action() = 0;
 
+    virtual ~AbstractRule() = default;
 };
 
 

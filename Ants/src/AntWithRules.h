@@ -81,13 +81,14 @@ private:
 
 class AntWithRules : public AntBasePheromone {
 private:
-    std::unique_ptr<AbstractRule> ruleWhenCarryingFood;
-    std::unique_ptr<AbstractRule> ruleWhenSearching;
+   AbstractRule * ruleWhenCarryingFood;
+   AbstractRule * ruleWhenSearching;
 public:
     AntWithRules(Environment *environment, Anthill *parentAnthill);
 
     void update() override;
 
+    virtual ~AntWithRules();
 };
 
 

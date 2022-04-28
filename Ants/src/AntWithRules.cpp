@@ -109,6 +109,11 @@ void AntWithRules::update() {
     }
 }
 
+AntWithRules::~AntWithRules() {
+    delete ruleWhenCarryingFood;
+    delete ruleWhenSearching;
+}
+
 bool AntSniffPheromonesToHome::condition() {
     getTargetAnt()->rotateToTarget(getTargetAnt()->getParentAnthill()->getPosition());
     auto pheromones = getTargetAnt()->choosePheromone();
