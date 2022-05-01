@@ -49,7 +49,8 @@ AntBase::AntBase(Environment *environment, Anthill *parentAnthill, float life, f
         parentAnthill), foodCarrying(0), speed(speed), direction(Vector2<float>::random()),
                                                                                               life(life),
                                                                                               Agent(environment,
-                                                                                                    parentAnthill->getPosition(), 2) {
+                                                                                                    parentAnthill->getPosition(),
+                                                                                                    2) {
     assert(life >= 1000 && life <= 2500);
 }
 

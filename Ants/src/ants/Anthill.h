@@ -8,7 +8,7 @@
 
 #include "Agent.h"
 
-class Anthill: public Agent {
+class Anthill : public Agent {
 private:
     float foodQuantity;
 public:

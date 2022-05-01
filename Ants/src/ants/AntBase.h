@@ -28,7 +28,8 @@ public:
     const Vector2<float> &getDirection() const;
 
 public:
-    AntBase(Environment * environment, Anthill * parentAnthill, float life = MathUtils::random(1000, 2500), float speed = 1);
+    AntBase(Environment *environment, Anthill *parentAnthill, float life = MathUtils::random(1000, 2500),
+            float speed = 1);
 
     void update() override;
 

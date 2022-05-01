@@ -17,6 +17,7 @@ protected:
 public:
 
     AntBasePheromone(Environment *environment, Anthill *parentAnthill);
+
     /**
      * Dépose des phéromones
      * @param q quantité de phéromones à déposer

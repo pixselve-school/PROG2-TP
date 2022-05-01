@@ -9,7 +9,7 @@
 #include "../ants/Agent.h"
 #include "../utils/MathUtils.h"
 
-class Food: public Agent {
+class Food : public Agent {
 private:
     float m_quantity;
 public:

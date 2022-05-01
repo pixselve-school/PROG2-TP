@@ -81,8 +81,8 @@ private:
 
 class AntWithRules : public AntBasePheromone {
 private:
-   AbstractRule * ruleWhenCarryingFood;
-   AbstractRule * ruleWhenSearching;
+    AbstractRule *ruleWhenCarryingFood;
+    AbstractRule *ruleWhenSearching;
 public:
     AntWithRules(Environment *environment, Anthill *parentAnthill);
 

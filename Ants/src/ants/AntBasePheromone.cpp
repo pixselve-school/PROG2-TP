@@ -27,7 +27,7 @@ Pheromone *AntBasePheromone::choosePheromone() const {
     std::vector<float> probaTable(perceivedPheromones.size(), 0);
 
     std::transform(perceivedPheromones.begin(), perceivedPheromones.end(), probaTable.begin(),
-                   [](Pheromone * value) {
+                   [](Pheromone *value) {
                        return value->getQuantity();
                    });
 

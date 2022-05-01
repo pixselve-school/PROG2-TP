@@ -10,12 +10,12 @@
 #include "../ants/AntBase.h"
 #include "../ants/AntBasePheromone.h"
 
-class AbstractAntRule: public AbstractRule {
+class AbstractAntRule : public AbstractRule {
 public:
     explicit AbstractAntRule(AntBasePheromone *targetAnt);
 
 private:
-    AntBasePheromone * targetAnt;
+    AntBasePheromone *targetAnt;
 public:
     AntBasePheromone *getTargetAnt() const;
 };
