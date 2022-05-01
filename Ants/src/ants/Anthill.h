@@ -6,6 +6,8 @@
 #define ANTS_ANTHILL_H
 
 
+static const int FOOD_REQUIRED_FOR_A_NEW_ANT = 50;
+
 #include "Agent.h"
 
 class Anthill : public Agent {

@@ -15,10 +15,10 @@ void Anthill::update() {
     Renderer::getInstance()->drawCircle(Agent::getPosition(), Agent::getRadius(), Renderer::Color(0, 0, 255, 255));
     Renderer::getInstance()->drawString(Agent::getPosition(), "food: " + std::to_string((int) foodQuantity));
 //    ant creating mechanism
-    if (foodQuantity >= 100) {
+    if (foodQuantity >= FOOD_REQUIRED_FOR_A_NEW_ANT) {
         new AntWithRules(getEnvironment(), this);
         NotificationBox::getInstance()->addNotification(Notification("Naissance d'une fourmi"));
-        foodQuantity -= 100;
+        foodQuantity -= FOOD_REQUIRED_FOR_A_NEW_ANT;
     }
 }
 
