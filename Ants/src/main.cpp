@@ -37,11 +37,13 @@ void onKeyPressed(char key, Environment *environment) {
         case 'd': {
             if (!environment->getAllInstancesOf<Agent>().empty()) {
                 environment->getAllInstancesOf<Agent>().front()->setStatus(destroy);
+                NotificationBox::getInstance()->addNotification(Notification("Suppression d'une entite"));
             }
             break;
         }
         case 'a': {
             auto anthill = new Anthill(environment, environment->randomPosition());
+            NotificationBox::getInstance()->addNotification(Notification("Ajout d'une fourmiliere"));
             for (int i = 0; i < 50; ++i) {
                 new AntWithRules(environment, anthill);
             }
