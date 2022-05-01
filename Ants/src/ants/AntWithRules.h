@@ -12,7 +12,7 @@
 
 class AntOnFood : public AbstractAntRule {
 public:
-    AntOnFood(AntBasePheromone *targetAnt);
+    explicit AntOnFood(AntBasePheromone *targetAnt);
 
 private:
     bool condition() override;
@@ -22,7 +22,7 @@ private:
 
 class AntAtHome : public AbstractAntRule {
 public:
-    AntAtHome(AntBasePheromone *targetAnt);
+    explicit AntAtHome(AntBasePheromone *targetAnt);
 
 private:
     bool condition() override;
@@ -32,7 +32,7 @@ private:
 
 class AntSniffPheromonesToHome : public AbstractAntRule {
 public:
-    AntSniffPheromonesToHome(AntBasePheromone *targetAnt);
+    explicit AntSniffPheromonesToHome(AntBasePheromone *targetAnt);
 
 public:
     bool condition() override;
@@ -42,7 +42,7 @@ public:
 
 class GoToHome : public AbstractAntRule {
 public:
-    GoToHome(AntBasePheromone *targetAnt);
+    explicit GoToHome(AntBasePheromone *targetAnt);
 
     bool condition() override;
 
@@ -51,7 +51,7 @@ public:
 
 class AntSeesFood : public AbstractAntRule {
 public:
-    AntSeesFood(AntBasePheromone *targetAnt);
+    explicit AntSeesFood(AntBasePheromone *targetAnt);
 
 private:
     bool condition() override;
@@ -61,7 +61,7 @@ private:
 
 class AntSniffPheromone : public AbstractAntRule {
 public:
-    AntSniffPheromone(AntBasePheromone *targetAnt);
+    explicit AntSniffPheromone(AntBasePheromone *targetAnt);
 
 private:
     bool condition() override;
@@ -71,7 +71,7 @@ private:
 
 class AntBaseAction : public AbstractAntRule {
 public:
-    AntBaseAction(AntBasePheromone *targetAnt);
+    explicit AntBaseAction(AntBasePheromone *targetAnt);
 
 private:
     bool condition() override;
@@ -88,7 +88,7 @@ public:
 
     void update() override;
 
-    virtual ~AntWithRules();
+    ~AntWithRules() override;
 };
 
 
