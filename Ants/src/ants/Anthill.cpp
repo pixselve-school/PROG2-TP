@@ -4,6 +4,7 @@
 
 #include "Anthill.h"
 #include "../utils/Renderer.h"
+#include "AntWithRules.h"
 
 Anthill::Anthill(Environment *environment, const Vector2<float> &position) : foodQuantity(0),
                                                                              Agent(environment, position,
@@ -12,6 +13,11 @@ Anthill::Anthill(Environment *environment, const Vector2<float> &position) : foo
 void Anthill::update() {
     Renderer::getInstance()->drawCircle(Agent::getPosition(), Agent::getRadius(), Renderer::Color(0, 0, 255, 255));
     Renderer::getInstance()->drawString(Agent::getPosition(), "food: " + std::to_string((int) foodQuantity));
+//    ant creating mechanism
+    if (foodQuantity >= 100) {
+        new AntWithRules(getEnvironment(), this);
+        foodQuantity -= 100;
+    }
 }
 
 void Anthill::depositFood(const float quantity) {
