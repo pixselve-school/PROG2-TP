@@ -5,6 +5,7 @@
 #include "Anthill.h"
 #include "../utils/Renderer.h"
 #include "AntWithRules.h"
+#include "../interface/NotificationBox.h"
 
 Anthill::Anthill(Environment *environment, const Vector2<float> &position) : foodQuantity(0),
                                                                              Agent(environment, position,
@@ -16,6 +17,7 @@ void Anthill::update() {
 //    ant creating mechanism
     if (foodQuantity >= 100) {
         new AntWithRules(getEnvironment(), this);
+        NotificationBox::getInstance()->addNotification(Notification("Naissance d'une fourmi"));
         foodQuantity -= 100;
     }
 }

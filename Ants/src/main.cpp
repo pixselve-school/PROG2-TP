@@ -13,6 +13,7 @@
 #include "ants/SillyAnt.h"
 #include "ants/Ant.h"
 #include "ants/AntWithRules.h"
+#include "interface/NotificationBox.h"
 
 static unsigned int windowWidth() { return 1024; }
 
@@ -27,7 +28,10 @@ void onKeyPressed(char key, Environment *environment) {
     std::cout << "Key pressed: " << key << std::endl;
     switch (key) {
         case 'f': {
-            new Food(environment, environment->randomPosition(), MathUtils::random(200, 2000));
+            const auto quantity = (int) MathUtils::random(200, 2000);
+            new Food(environment, environment->randomPosition(), quantity);
+            NotificationBox::getInstance()->addNotification(Notification("Ajout de nourriture de taille " +
+                                                                                 std::to_string(quantity)));
             break;
         }
         case 'd': {
@@ -54,6 +58,7 @@ void onKeyPressed(char key, Environment *environment) {
 /// </summary>
 void onSimulate() {
     Agent::simulate();
+    NotificationBox::getInstance()->update();
 }
 
 /// <summary>
@@ -73,6 +78,8 @@ int main(int /*argc*/, char ** /*argv*/) {
 
     // 3 - Creation of an environment
     Environment environment(windowWidth(), windowHeight());
+
+    NotificationBox::initialize();
 
     // 4 - We change the seed of the random number generator
     srand((unsigned int) time(NULL));
