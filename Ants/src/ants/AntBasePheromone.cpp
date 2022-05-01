@@ -3,7 +3,7 @@
 //
 
 #include "AntBasePheromone.h"
-#include "Pheromone.h"
+#include "../ant-environment/Pheromone.h"
 
 void AntBasePheromone::putPheromone(float q) {
     if (LocalizedEntity::perceive<Pheromone>().empty()) {

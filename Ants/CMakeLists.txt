@@ -13,16 +13,16 @@ pkg_check_modules(SDL2_TTF REQUIRED SDL2_ttf)
 pkg_check_modules(SDL2_GFX REQUIRED SDL2_gfx)
 
 
-add_executable(Ants src/Environment.cpp
-        src/Environment.h
+add_executable(Ants src/ant-environment/Environment.cpp
+        src/ant-environment/Environment.h
         src/main.cpp
-        src/MathUtils.h
-        src/Rectangle.h
-        src/Renderer.cpp
-        src/Renderer.h
-        src/Timer.cpp
-        src/Timer.h
-        src/Vector2.h src/Agent.cpp src/Agent.h src/Food.cpp src/Food.h src/Anthill.cpp src/Anthill.h src/AntBase.cpp src/AntBase.h src/SillyAnt.cpp src/SillyAnt.h src/Pheromone.cpp src/Pheromone.h src/AntBasePheromone.cpp src/AntBasePheromone.h src/Ant.cpp src/Ant.h src/AbstractRule.h src/OrRule.cpp src/OrRule.h src/AbstractAntRule.cpp src/AbstractAntRule.h src/AntWithRules.cpp src/AntWithRules.h)
+        src/utils/MathUtils.h
+        src/utils/Rectangle.h
+        src/utils/Renderer.cpp
+        src/utils/Renderer.h
+        src/utils/Timer.cpp
+        src/utils/Timer.h
+        src/utils/Vector2.h src/ants/Agent.cpp src/ants/Agent.h src/ant-environment/Food.cpp src/ant-environment/Food.h src/ants/Anthill.cpp src/ants/Anthill.h src/ants/AntBase.cpp src/ants/AntBase.h src/ants/SillyAnt.cpp src/ants/SillyAnt.h src/ant-environment/Pheromone.cpp src/ant-environment/Pheromone.h src/ants/AntBasePheromone.cpp src/ants/AntBasePheromone.h src/ants/Ant.cpp src/ants/Ant.h src/ants/AbstractRule.h src/rules/OrRule.cpp src/rules/OrRule.h src/rules/AbstractAntRule.cpp src/rules/AbstractAntRule.h src/ants/AntWithRules.cpp src/ants/AntWithRules.h)
 
 
 include_directories(${SDL2_INCLUDE_DIRS} /opt/homebrew/Cellar/sdl2_gfx/1.0.4/include/SDL2 /opt/homebrew/Cellar/sdl2_ttf/2.0.18_1/include/SDL2)

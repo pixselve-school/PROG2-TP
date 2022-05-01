@@ -3,8 +3,8 @@
 //
 
 #include "SillyAnt.h"
-#include "Food.h"
-#include "Timer.h"
+#include "../ant-environment/Food.h"
+#include "../utils/Timer.h"
 
 SillyAnt::SillyAnt(Environment *environment, Anthill *parentAnthill)
         : AntBase(environment, parentAnthill) {

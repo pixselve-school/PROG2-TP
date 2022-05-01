@@ -3,9 +3,9 @@
 //
 
 #include "AntWithRules.h"
-#include "Food.h"
-#include "Timer.h"
-#include "OrRule.h"
+#include "../ant-environment/Food.h"
+#include "../utils/Timer.h"
+#include "../rules/OrRule.h"
 
 bool AntOnFood::condition() {
     if (getTargetAnt()->hasFood()) return false;

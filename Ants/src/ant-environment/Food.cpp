@@ -3,7 +3,7 @@
 //
 
 #include "Food.h"
-#include "Renderer.h"
+#include "../utils/Renderer.h"
 
 Food::Food(Environment *environment, const Vector2<float> &position, float quantity) : m_quantity(quantity),
                                                                                        Agent(environment, position,

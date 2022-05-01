@@ -6,7 +6,7 @@
 #define ANTS_PHEROMONE_H
 
 
-#include "Agent.h"
+#include "../ants/Agent.h"
 
 class Pheromone : public Agent {
 private:

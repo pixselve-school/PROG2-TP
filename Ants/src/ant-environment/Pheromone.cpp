@@ -3,8 +3,8 @@
 //
 
 #include "Pheromone.h"
-#include "Timer.h"
-#include "Renderer.h"
+#include "../utils/Timer.h"
+#include "../utils/Renderer.h"
 
 void Pheromone::update() {
     evaporate();
@@ -28,4 +28,4 @@ void Pheromone::addQuantity(float quantity) {
 }
 
 Pheromone::Pheromone(Environment *environment, const Vector2<float> &position, float quantity) : quantity(quantity), Agent(environment,
-                                                                                       position) {}
+                                                                                       position, 2) {}

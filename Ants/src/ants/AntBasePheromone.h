@@ -7,7 +7,7 @@
 
 
 #include "AntBase.h"
-#include "Pheromone.h"
+#include "../ant-environment/Pheromone.h"
 
 class AntBasePheromone : public AntBase {
 protected:

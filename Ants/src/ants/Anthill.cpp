@@ -3,7 +3,7 @@
 //
 
 #include "Anthill.h"
-#include "Renderer.h"
+#include "../utils/Renderer.h"
 
 Anthill::Anthill(Environment *environment, const Vector2<float> &position) : foodQuantity(0),
                                                                              Agent(environment, position,

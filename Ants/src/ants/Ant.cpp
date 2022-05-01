@@ -3,8 +3,8 @@
 //
 
 #include "Ant.h"
-#include "Food.h"
-#include "Timer.h"
+#include "../ant-environment/Food.h"
+#include "../utils/Timer.h"
 
 Ant::Ant(Environment *environment, Anthill *parentAnthill) : AntBasePheromone(environment, parentAnthill) {
 

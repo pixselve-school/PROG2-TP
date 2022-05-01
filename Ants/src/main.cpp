@@ -3,16 +3,16 @@
 #include <iostream>
 #include "SDL.h"
 #include "SDL2_gfxPrimitives.h"
-#include "Environment.h"
-#include "Renderer.h"
+#include "ant-environment/Environment.h"
+#include "utils/Renderer.h"
 #include <time.h>
-#include "Timer.h"
-#include "Agent.h"
-#include "Food.h"
-#include "Anthill.h"
-#include "SillyAnt.h"
-#include "Ant.h"
-#include "AntWithRules.h"
+#include "utils/Timer.h"
+#include "ants/Agent.h"
+#include "ant-environment/Food.h"
+#include "ants/Anthill.h"
+#include "ants/SillyAnt.h"
+#include "ants/Ant.h"
+#include "ants/AntWithRules.h"
 
 static unsigned int windowWidth() { return 1024; }
 

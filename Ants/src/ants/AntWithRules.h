@@ -7,7 +7,7 @@
 
 
 #include "AntBasePheromone.h"
-#include "AbstractAntRule.h"
+#include "../rules/AbstractAntRule.h"
 #include "memory"
 
 class AntOnFood : public AbstractAntRule {

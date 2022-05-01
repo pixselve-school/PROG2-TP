@@ -6,7 +6,7 @@
 #define ANTS_ORRULE_H
 
 #include <memory>
-#include "AbstractRule.h"
+#include "../ants/AbstractRule.h"
 
 class OrRule : public AbstractRule {
     std::unique_ptr<AbstractRule> condition1;

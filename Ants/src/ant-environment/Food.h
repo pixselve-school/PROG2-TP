@@ -6,8 +6,8 @@
 #define ANTS_FOOD_H
 
 
-#include "Agent.h"
-#include "MathUtils.h"
+#include "../ants/Agent.h"
+#include "../utils/MathUtils.h"
 
 class Food: public Agent {
 private:

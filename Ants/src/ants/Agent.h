@@ -6,7 +6,7 @@
 #define ANTS_AGENT_H
 
 
-#include "Environment.h"
+#include "../ant-environment/Environment.h"
 
 typedef enum {
     running, destroy

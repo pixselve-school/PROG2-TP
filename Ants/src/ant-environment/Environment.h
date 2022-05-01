@@ -3,11 +3,11 @@
 
 #include <vector>
 #include <set>
-#include "Vector2.h"
+#include "../utils/Vector2.h"
 #include <algorithm>
 #include "SDL.h"
-#include "Rectangle.h"
-#include "MathUtils.h"
+#include "../utils/Rectangle.h"
+#include "../utils/MathUtils.h"
 #include <iterator>
 
 /// <summary>

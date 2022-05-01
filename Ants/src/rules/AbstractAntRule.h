@@ -6,9 +6,9 @@
 #define ANTS_ABSTRACTANTRULE_H
 
 
-#include "AbstractRule.h"
-#include "AntBase.h"
-#include "AntBasePheromone.h"
+#include "../ants/AbstractRule.h"
+#include "../ants/AntBase.h"
+#include "../ants/AntBasePheromone.h"
 
 class AbstractAntRule: public AbstractRule {
 public:

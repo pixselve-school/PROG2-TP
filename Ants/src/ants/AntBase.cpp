@@ -3,8 +3,8 @@
 //
 
 #include "AntBase.h"
-#include "Renderer.h"
-#include "Timer.h"
+#include "../utils/Renderer.h"
+#include "../utils/Timer.h"
 
 void AntBase::update() {
     auto color = hasFood() ? Renderer::Color(128, 255, 128, 255) : Renderer::Color(255, 255, 255, 255);
@@ -49,7 +49,7 @@ AntBase::AntBase(Environment *environment, Anthill *parentAnthill, float life, f
         parentAnthill), foodCarrying(0), speed(speed), direction(Vector2<float>::random()),
                                                                                               life(life),
                                                                                               Agent(environment,
-                                                                                                    parentAnthill->getPosition()) {
+                                                                                                    parentAnthill->getPosition(), 2) {
     assert(life >= 1000 && life <= 2500);
 }
 
