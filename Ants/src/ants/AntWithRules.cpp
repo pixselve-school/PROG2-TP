@@ -3,6 +3,8 @@
 //
 
 #include "AntWithRules.h"
+
+#include <memory>
 #include "../ant-environment/Food.h"
 #include "../utils/Timer.h"
 #include "../rules/OrRule.h"
@@ -85,15 +87,18 @@ AntBaseAction::AntBaseAction(AntBasePheromone *targetAnt) : AbstractAntRule(targ
 
 
 AntWithRules::AntWithRules(Environment *environment, Anthill *parentAnthill) : ruleWhenSearching(
-        new OrRule(new AntOnFood(this), new OrRule(new AntSeesFood(this),
-                                                   new OrRule(new AntSniffPheromone(this), new AntBaseAction(this))))),
+        std::make_unique<OrRule>(new AntOnFood(this), new OrRule(new AntSeesFood(this),
+                                                                 new OrRule(new AntSniffPheromone(this),
+                                                                            new AntBaseAction(this))))),
                                                                                ruleWhenCarryingFood(
-                                                                                       new OrRule(new AntAtHome(this),
-                                                                                                  new OrRule(
-                                                                                                          new AntSniffPheromonesToHome(
-                                                                                                                  this),
-                                                                                                          new GoToHome(
-                                                                                                                  this)))),
+                                                                                       std::make_unique<OrRule>(
+                                                                                               new AntAtHome(
+                                                                                                       this),
+                                                                                               new OrRule(
+                                                                                                       new AntSniffPheromonesToHome(
+                                                                                                               this),
+                                                                                                       new GoToHome(
+                                                                                                               this)))),
                                                                                AntBasePheromone(environment,
                                                                                                 parentAnthill) {
 
@@ -109,10 +114,7 @@ void AntWithRules::update() {
     }
 }
 
-AntWithRules::~AntWithRules() {
-    delete ruleWhenCarryingFood;
-    delete ruleWhenSearching;
-}
+AntWithRules::~AntWithRules() = default;
 
 bool AntSniffPheromonesToHome::condition() {
     getTargetAnt()->rotateToTarget(getTargetAnt()->getParentAnthill()->getPosition());
