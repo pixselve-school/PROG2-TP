@@ -14,12 +14,13 @@ void AntBasePheromone::putPheromone(float q) {
 }
 
 const float AntBasePheromone::MAX_DISTANCE_VIEW_PHEROMONE = 8;
+const float AntBasePheromone::MIN_DISTANCE_VIEW_PHEROMONE = 3;
 const float AntBasePheromone::PHEROMONE_AMOUNT_TO_DROP = 10;
 const float AntBasePheromone::PHEROMONE_AMOUNT_TO_DROP_WHEN_CARRYING_FOOD = 100;
 
 Pheromone *AntBasePheromone::choosePheromone() const {
     auto perceivedPheromones = LocalizedEntity::perceive<Pheromone>(getDirection(), OPENING_ANGLE,
-                                                                    MAX_DISTANCE_VIEW_PHEROMONE);
+                                                                    MAX_DISTANCE_VIEW_PHEROMONE, MIN_DISTANCE_VIEW_PHEROMONE);
     if (perceivedPheromones.empty()) {
         return nullptr;
     }

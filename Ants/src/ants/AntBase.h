@@ -24,6 +24,7 @@ public:
     static const float OPENING_ANGLE;
     static const float MAX_FOOD;
     const static float MAX_DISTANCE_VIEW_FOOD;
+    const static float MIN_DISTANCE_VIEW_FOOD;
 public:
     const Vector2<float> &getDirection() const;
 

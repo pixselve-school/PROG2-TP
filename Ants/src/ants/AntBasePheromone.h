@@ -12,6 +12,7 @@
 class AntBasePheromone : public AntBase {
 protected:
     const static float MAX_DISTANCE_VIEW_PHEROMONE;
+    const static float MIN_DISTANCE_VIEW_PHEROMONE;
     const static float PHEROMONE_AMOUNT_TO_DROP;
     const static float PHEROMONE_AMOUNT_TO_DROP_WHEN_CARRYING_FOOD;
 public:

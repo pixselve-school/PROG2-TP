@@ -43,14 +43,14 @@ AntAtHome::AntAtHome(AntBasePheromone *targetAnt) : AbstractAntRule(targetAnt) {
 
 bool AntSeesFood::condition() {
     auto foodInView = getTargetAnt()->perceive<Food>(getTargetAnt()->getDirection(), AntBase::OPENING_ANGLE,
-                                                     AntBase::MAX_DISTANCE_VIEW_FOOD);
+                                                     AntBase::MAX_DISTANCE_VIEW_FOOD, AntBasePheromone::MIN_DISTANCE_VIEW_FOOD);
     return !foodInView.empty();
 }
 
 void AntSeesFood::action() {
     auto ant = getTargetAnt();
     auto foodInView = ant->perceive<Food>(ant->getDirection(), AntBase::OPENING_ANGLE,
-                                          AntBase::MAX_DISTANCE_VIEW_FOOD).front();
+                                          AntBase::MAX_DISTANCE_VIEW_FOOD, AntBasePheromone::MIN_DISTANCE_VIEW_FOOD).front();
     ant->rotateToTarget(foodInView->getPosition());
     ant->move();
 }

@@ -65,3 +65,4 @@ const Vector2<float> &AntBase::getDirection() const {
 const float AntBase::OPENING_ANGLE = MathUtils::piDiv2;
 const float AntBase::MAX_FOOD = 5;
 const float AntBase::MAX_DISTANCE_VIEW_FOOD = 3;
+const float AntBase::MIN_DISTANCE_VIEW_FOOD = 1;
