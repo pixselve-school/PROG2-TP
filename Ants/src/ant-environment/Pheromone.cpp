@@ -29,4 +29,4 @@ void Pheromone::addQuantity(float quantity) {
 
 Pheromone::Pheromone(Environment *environment, const Vector2<float> &position, float quantity) : quantity(quantity),
                                                                                                  Agent(environment,
-                                                                                                       position, 2) {}
+                                                                                                       position) {}
