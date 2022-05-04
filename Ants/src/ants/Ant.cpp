@@ -31,7 +31,7 @@ void Ant::update() {
         }
     } else {
         if (LocalizedEntity::perceive<Food>().empty()) {
-            auto foodInView = LocalizedEntity::perceive<Food>(getDirection(), OPENING_ANGLE, MAX_DISTANCE_VIEW_FOOD);
+            auto foodInView = LocalizedEntity::perceive<Food>(getDirection(), OPENING_ANGLE, MAX_DISTANCE_VIEW_FOOD, MIN_DISTANCE_VIEW_FOOD);
             if (foodInView.empty()) {
                 auto pheromones = choosePheromone();
                 if (pheromones != nullptr) {
