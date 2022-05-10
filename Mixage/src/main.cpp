@@ -18,7 +18,7 @@
 
 void
 q2_signal_constant() {
-    signal_constant constant(0.4);
+    signal_constant constant(0.5);
     enregistreur_fichier_texte enregistreur("../out/02_constant.txt", 1);
     enregistreur.connecterEntree(constant.getSortie(0), 0);
     // générer des valeurs
