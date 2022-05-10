@@ -4,4 +4,6 @@
 |--------------|--------------------------------------|
 | 1            | [Vecteur](Vecteur)                   |
 | 1.b          | [VecteurGenerique](VecteurGenerique) |
-| 2            | [Liste](Liste) |
+| 2            | [Liste](Liste)                       |
+| 3            | [Ants](Ants)                         |
+| 4            | [Mixage](Mixage)                     |
