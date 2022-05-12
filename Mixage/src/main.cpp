@@ -15,6 +15,7 @@
 #include "filtre/multiplicateur.h"
 #include "filtre/operation_binaire.h"
 #include "filtre/volume.h"
+#include "filtre/mixeur.h"
 
 void
 q2_signal_constant() {
@@ -94,12 +95,46 @@ void q12_volume() {
     }
 }
 
+void q15_compose() {
+    {
+        mixeur mixeur_filter({0.5, 1});
+        harmonique la440(440, 0);
+        harmonique la880(880, 0);
+        mixeur_filter.connecterEntree(la440.getSortie(0), 0);
+        mixeur_filter.connecterEntree(la880.getSortie(0), 1);
+        enregistreur_fichier enregistreur("../out/q15_compose_1.raw", 1);
+        enregistreur.connecterEntree(mixeur_filter.getSortie(0), 0);
+        for (unsigned long int i = 0; i < 2 * MixageSonore::frequency; ++i) {
+            la440.calculer();
+            la880.calculer();
+            mixeur_filter.calculer();
+            enregistreur.calculer();
+        }
+    }
+    {
+        mixeur mixeur_filter({1, 0.5});
+        harmonique la440(440, 0);
+        harmonique la880(880, 0);
+        mixeur_filter.connecterEntree(la440.getSortie(0), 0);
+        mixeur_filter.connecterEntree(la880.getSortie(0), 1);
+        enregistreur_fichier enregistreur("../out/q15_compose_2.raw", 1);
+        enregistreur.connecterEntree(mixeur_filter.getSortie(0), 0);
+        for (unsigned long int i = 0; i < 2 * MixageSonore::frequency; ++i) {
+            la440.calculer();
+            la880.calculer();
+            mixeur_filter.calculer();
+            enregistreur.calculer();
+        }
+    }
+}
+
 int
 main() {
-    q2_signal_constant();
-    q4_harmonique();
-    q9_multiplicateur();
-    q11_operation_binaire();
-    q12_volume();
+//    q2_signal_constant();
+//    q4_harmonique();
+//    q9_multiplicateur();
+//    q11_operation_binaire();
+//    q12_volume();
+    q15_compose();
     return 0;
 }
