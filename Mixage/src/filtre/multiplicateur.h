@@ -13,7 +13,7 @@ class multiplicateur : public filtre_base {
 private:
 
 public:
-    multiplicateur() : filtre_base(1, 2) {}
+    explicit multiplicateur() : filtre_base(1, 2) {}
 
     unsigned int nbEntrees() const override {
         return consommateur_base::nbEntrees();

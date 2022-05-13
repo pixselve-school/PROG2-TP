@@ -16,6 +16,7 @@
 #include "filtre/operation_binaire.h"
 #include "filtre/volume.h"
 #include "filtre/mixeur.h"
+#include "utils/lecteur_fichier.h"
 
 void
 q2_signal_constant() {
@@ -128,6 +129,26 @@ void q15_compose() {
     }
 }
 
+void q16_lecteur_fichier_mono() {
+    lecteur_fichier lecteur("../raw/mono.raw", 1);
+    enregistreur_fichier enregistreur("../out/q16_lecteur_fichier_mono.raw", 1);
+    enregistreur.connecterEntree(lecteur.getSortie(0), 0);
+    while (lecteur.can_read()) {
+        lecteur.calculer();
+        enregistreur.calculer();
+    }
+}
+void q16_lecteur_fichier_stereo() {
+    lecteur_fichier lecteur("../raw/stereo.raw", 2);
+    enregistreur_fichier enregistreur("../out/q16_lecteur_fichier_stereo.raw", 2);
+    enregistreur.connecterEntree(lecteur.getSortie(0), 0);
+    enregistreur.connecterEntree(lecteur.getSortie(1), 1);
+    while (lecteur.can_read()) {
+        lecteur.calculer();
+        enregistreur.calculer();
+    }
+}
+
 int
 main() {
 //    q2_signal_constant();
@@ -135,6 +156,8 @@ main() {
 //    q9_multiplicateur();
 //    q11_operation_binaire();
 //    q12_volume();
-    q15_compose();
+//    q15_compose();
+    q16_lecteur_fichier_mono();
+    q16_lecteur_fichier_stereo();
     return 0;
 }
