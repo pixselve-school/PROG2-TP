@@ -17,6 +17,8 @@
 #include "filtre/volume.h"
 #include "filtre/mixeur.h"
 #include "utils/lecteur_fichier.h"
+#include "filtre/fade.h"
+#include "filtre/fade_in.h"
 
 void
 q2_signal_constant() {
@@ -138,6 +140,7 @@ void q16_lecteur_fichier_mono() {
         enregistreur.calculer();
     }
 }
+
 void q16_lecteur_fichier_stereo() {
     lecteur_fichier lecteur("../raw/stereo.raw", 2);
     enregistreur_fichier enregistreur("../out/q16_lecteur_fichier_stereo.raw", 2);
@@ -145,6 +148,24 @@ void q16_lecteur_fichier_stereo() {
     enregistreur.connecterEntree(lecteur.getSortie(1), 1);
     while (lecteur.can_read()) {
         lecteur.calculer();
+        enregistreur.calculer();
+    }
+}
+
+void q17_mixage_piste_audio() {
+
+}
+
+void q181_fade_in() {
+    lecteur_fichier lecteur("../raw/mono.raw", 1);
+    enregistreur_fichier enregistreur("../out/q181_fade_in.raw", 1);
+
+    fade_in fade_filter(2, 2);
+    fade_filter.connecterEntree(lecteur.getSortie(0), 0);
+    enregistreur.connecterEntree(fade_filter.getSortie(0), 0);
+    while (lecteur.can_read()) {
+        lecteur.calculer();
+        fade_filter.calculer();
         enregistreur.calculer();
     }
 }
@@ -159,5 +180,6 @@ main() {
 //    q15_compose();
     q16_lecteur_fichier_mono();
     q16_lecteur_fichier_stereo();
+    q181_fade_in();
     return 0;
 }
