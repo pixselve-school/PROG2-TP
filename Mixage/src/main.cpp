@@ -20,6 +20,7 @@
 #include "filtre/fade.h"
 #include "filtre/fade_in.h"
 #include "filtre/fade_out.h"
+#include "filtre/compression.h"
 
 void
 q2_signal_constant() {
@@ -185,6 +186,20 @@ void q182_fade_out() {
     }
 }
 
+void q18_compression() {
+    lecteur_fichier lecteur("../raw/mono.raw", 1);
+    enregistreur_fichier enregistreur("../out/q18_compression.raw", 1);
+
+    compression compression_filter(0.98);
+    compression_filter.connecterEntree(lecteur.getSortie(0), 0);
+    enregistreur.connecterEntree(compression_filter.getSortie(0), 0);
+    while (lecteur.can_read()) {
+        lecteur.calculer();
+        compression_filter.calculer();
+        enregistreur.calculer();
+    }
+}
+
 int
 main() {
 //    q2_signal_constant();
@@ -197,5 +212,6 @@ main() {
     q16_lecteur_fichier_stereo();
     q181_fade_in();
     q182_fade_out();
+    q18_compression();
     return 0;
 }
