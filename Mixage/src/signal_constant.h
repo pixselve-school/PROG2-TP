@@ -13,13 +13,14 @@
 class signal_constant : private producteur {
 private:
     std::shared_ptr<flot> signal;
-    const double signal_value;
+    double signal_value;
 public:
     explicit signal_constant(const double signal_value) : signal_value(signal_value),
                                                           signal(std::make_shared<imp_flot>()) {
     };
 
-public:
+    signal_constant &operator=(const signal_constant &) = default;
+
     void calculer() override {
         signal->inserer(signal_value);
     };
