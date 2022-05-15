@@ -19,6 +19,7 @@
 #include "utils/lecteur_fichier.h"
 #include "filtre/fade.h"
 #include "filtre/fade_in.h"
+#include "filtre/fade_out.h"
 
 void
 q2_signal_constant() {
@@ -170,6 +171,20 @@ void q181_fade_in() {
     }
 }
 
+void q182_fade_out() {
+    lecteur_fichier lecteur("../raw/mono.raw", 1);
+    enregistreur_fichier enregistreur("../out/q182_fade_out.raw", 1);
+
+    fade_out fade_filter(2, 2);
+    fade_filter.connecterEntree(lecteur.getSortie(0), 0);
+    enregistreur.connecterEntree(fade_filter.getSortie(0), 0);
+    while (lecteur.can_read()) {
+        lecteur.calculer();
+        fade_filter.calculer();
+        enregistreur.calculer();
+    }
+}
+
 int
 main() {
 //    q2_signal_constant();
@@ -181,5 +196,6 @@ main() {
     q16_lecteur_fichier_mono();
     q16_lecteur_fichier_stereo();
     q181_fade_in();
+    q182_fade_out();
     return 0;
 }
