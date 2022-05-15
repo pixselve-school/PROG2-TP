@@ -43,6 +43,10 @@ public:
         return _multiplicateur.getSortie(0);
     }
 
+    void change_volume(const double new_value) {
+        _signal_constant = signal_constant(new_value);
+    }
+
     void calculer() override {
         assert(yaDesEchantillons());
         _signal_constant.calculer();
