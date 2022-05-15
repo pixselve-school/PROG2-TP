@@ -10,7 +10,7 @@
 #include "volume.h"
 #include "constantes.h"
 
-class fade : filtre_base {
+class fade : public filtre_base {
 private:
     double _current_time;
     double _duration;
