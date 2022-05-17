@@ -30,6 +30,8 @@ public:
     const std::shared_ptr<flot> &getSortie(unsigned int numsortie) const override {
         return _outputs.at(numsortie);
     }
+
+    ~producteur_base() override = default;
 };
 
 

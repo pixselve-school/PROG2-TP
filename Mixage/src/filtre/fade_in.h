@@ -21,26 +21,6 @@ public:
         connecterSortie(fade_filter->getSortie(0), 0);
         addComponent(fade_filter);
     }
-
-    unsigned int nbEntrees() const override {
-        return consommateur_base::nbEntrees();
-    }
-
-    const std::shared_ptr<flot> &getEntree(unsigned int numentree) const override {
-        return consommateur_base::getEntree(numentree);
-    }
-
-    bool yaDesEchantillons() const override {
-        return consommateur_base::yaDesEchantillons();
-    }
-
-    unsigned int nbSorties() const override {
-        return producteur_base::nbSorties();
-    }
-
-    const std::shared_ptr<flot> &getSortie(unsigned int numsortie) const override {
-        return producteur_base::getSortie(numsortie);
-    }
 };
 
 

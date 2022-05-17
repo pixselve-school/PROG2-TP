@@ -202,12 +202,12 @@ void q18_compression() {
 
 int
 main() {
-//    q2_signal_constant();
-//    q4_harmonique();
-//    q9_multiplicateur();
-//    q11_operation_binaire();
-//    q12_volume();
-//    q15_compose();
+    q2_signal_constant();
+    q4_harmonique();
+    q9_multiplicateur();
+    q11_operation_binaire();
+    q12_volume();
+    q15_compose();
     q16_lecteur_fichier_mono();
     q16_lecteur_fichier_stereo();
     q181_fade_in();

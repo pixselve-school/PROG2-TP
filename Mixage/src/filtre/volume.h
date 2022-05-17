@@ -18,25 +18,10 @@ public:
         _multiplicateur.connecterEntree(_signal_constant.getSortie(0), 0);
     }
 
-    unsigned int nbEntrees() const override {
-        return consommateur_base::nbEntrees();
-    }
-
-    const std::shared_ptr<flot> &getEntree(unsigned int numentree) const override {
-        return consommateur_base::getEntree(numentree);
-    }
 
     void connecterEntree(const std::shared_ptr<flot> &f, unsigned int numentree) override {
-        consommateur_base::connecterEntree(f, numentree);
+        filtre_base::connecterEntree(f, numentree);
         _multiplicateur.connecterEntree(getEntree(0), 1);
-    }
-
-    bool yaDesEchantillons() const override {
-        return consommateur_base::yaDesEchantillons();
-    }
-
-    unsigned int nbSorties() const override {
-        return producteur_base::nbSorties();
     }
 
     const std::shared_ptr<flot> &getSortie(unsigned int numsortie) const override {

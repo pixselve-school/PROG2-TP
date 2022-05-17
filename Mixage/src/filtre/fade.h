@@ -26,39 +26,16 @@ public:
     }
 
 public:
-    unsigned int nbEntrees() const override {
-        return consommateur_base::nbEntrees();
-    }
-
-    const std::shared_ptr<flot> &getEntree(unsigned int numentree) const override {
-        return consommateur_base::getEntree(numentree);
-    }
-
-    void connecterEntree(const std::shared_ptr<flot> &f, unsigned int numentree) override {
-        consommateur_base::connecterEntree(f, numentree);
-    }
-
-    bool yaDesEchantillons() const override {
-        return consommateur_base::yaDesEchantillons();
-    }
-
-    unsigned int nbSorties() const override {
-        return producteur_base::nbSorties();
-    }
-
-    const std::shared_ptr<flot> &getSortie(unsigned int numsortie) const override {
-        return producteur_base::getSortie(numsortie);
-    }
 
     void calculer() override {
-        assert(consommateur_base::yaDesEchantillons());
-        auto result = consommateur_base::getEntree(0)->extraire();
+        assert(filtre_base::yaDesEchantillons());
+        auto result = filtre_base::getEntree(0)->extraire();
         if (_current_time > _start && _current_time < _start + _duration) {
             _current_volume = _volume_from + _step * (_current_time - _start);
         }
         result *= _current_volume;
         _current_time += 1.0 / MixageSonore::frequency;
-        producteur_base::getSortie(0)->inserer(result);
+        filtre_base::getSortie(0)->inserer(result);
     }
 
 };

@@ -20,11 +20,11 @@ public:
                                                                                                 inputCount) {}
 
     void connecterEntree(const std::shared_ptr<flot> &f, unsigned int numentree) override {
-        consommateur_base::connecterEntree(f, numentree);
+        filtre_base::connecterEntree(f, numentree);
         // check if a link exists
         if (_links.find(numentree) != _links.end()) {
             auto link = _links.at(numentree);
-            link.second->connecterEntree(consommateur_base::getEntree(numentree), link.first);
+            link.second->connecterEntree(filtre_base::getEntree(numentree), link.first);
         }
     }
 

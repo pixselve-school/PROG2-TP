@@ -35,6 +35,8 @@ public:
         return std::all_of(_inputs.begin(), _inputs.end(), [](const std::shared_ptr<flot> &f) { return !f->vide(); });
     }
 
+    ~consommateur_base() override = default;
+
 };
 
 
