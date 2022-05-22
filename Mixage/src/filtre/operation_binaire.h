@@ -13,6 +13,7 @@ class operation_binaire : public filtre_base {
 public:
     operation_binaire() : filtre_base(1,
                                       2) {}
+
 public:
     void calculer() override {
         assert(yaDesEchantillons());

@@ -22,7 +22,7 @@ private:
 public:
     explicit fade(const double start, const double duration, const double volume_from, const double volume_to)
             : filtre_base(1, 1), _current_time(0), _duration(duration), _start(start), _volume_from(volume_from),
-               _step((volume_to - volume_from) / duration), _current_volume(volume_from) {
+              _step((volume_to - volume_from) / duration), _current_volume(volume_from) {
     }
 
 public:

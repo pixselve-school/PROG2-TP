@@ -9,7 +9,7 @@
 #include "filtre_compose.h"
 #include "fade.h"
 
-class fade_out: public filtre_compose {
+class fade_out : public filtre_compose {
 public:
     /**
      * @param duration the duration of the fade in (in seconds)

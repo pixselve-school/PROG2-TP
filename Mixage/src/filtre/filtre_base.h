@@ -12,7 +12,8 @@
 
 class filtre_base : public producteur_base, public consommateur_base, public filtre {
 public:
-    filtre_base(const unsigned int output_count, const unsigned int input_count) : producteur_base(output_count), consommateur_base(input_count) {}
+    filtre_base(const unsigned int output_count, const unsigned int input_count) : producteur_base(output_count),
+                                                                                   consommateur_base(input_count) {}
 
     unsigned int nbEntrees() const override {
         return consommateur_base::nbEntrees();

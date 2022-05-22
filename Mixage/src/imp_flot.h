@@ -10,7 +10,7 @@
 #include "flot.h"
 #include "cassert"
 
-class imp_flot: public flot {
+class imp_flot : public flot {
 public:
     void inserer(double echantillon) override {
         samples.push_back(echantillon);

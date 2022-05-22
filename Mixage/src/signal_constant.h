@@ -19,7 +19,7 @@ public:
                                                           signal(std::make_shared<imp_flot>()) {
     };
 
-    signal_constant &operator=(const signal_constant & signalConstant) {
+    signal_constant &operator=(const signal_constant &signalConstant) {
         signal = signalConstant.signal;
         signal_value = signalConstant.signal_value;
         return *this;

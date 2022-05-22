@@ -10,7 +10,7 @@
 #include "constantes.h"
 #include <math.h>
 
-class harmonique: public producteur_base {
+class harmonique : public producteur_base {
 private:
     const int frequency;
     const double phase;
@@ -22,7 +22,8 @@ public:
     }
 
 public:
-    harmonique(const int frequency, const double phase) : frequency(frequency), phase(phase), i(0), producteur_base(1) {}
+    harmonique(const int frequency, const double phase) : frequency(frequency), phase(phase), i(0),
+                                                          producteur_base(1) {}
 
 private:
     double generate_wave() const {
