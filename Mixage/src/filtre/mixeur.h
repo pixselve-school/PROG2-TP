@@ -17,12 +17,11 @@ public:
         for (int i = 0; i < volumes.size(); ++i) {
             const auto &volume_item = volumes.at(i);
             std::shared_ptr<volume> volume_filter = std::make_shared<volume>(volume_item);
-
-            makeLink(i, volume_filter, 0);
+            makeInputLink(i, volume_filter, 0);
             adder_filter->connecterEntree(volume_filter->getSortie(0), i);
             addComponent(volume_filter);
         }
-        producteur_base::connecterSortie(adder_filter->getSortie(0), 0);
+        makeOutputLink(0, adder_filter, 0);
         addComponent(adder_filter);
     }
 };

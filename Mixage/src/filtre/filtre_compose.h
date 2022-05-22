@@ -34,14 +34,38 @@ public:
         }
     }
 
+    /**
+     * Add an internal component
+     * @param composant_item the component to add
+     */
     void addComponent(const std::shared_ptr<composant> &composant_item) {
         _components.push_back(composant_item);
     }
 
-    void makeLink(const unsigned int inputIndex, const std::shared_ptr<filtre>& component,
-                  const unsigned int componentInputIndex) {
-        _links.insert({inputIndex, {componentInputIndex, component}});
+    /**
+     * Make a link from a filter input to a internal component's input
+     * @param input_index the filter input index
+     * @param component the component
+     * @param component_input_index the component input index
+     */
+    void makeInputLink(const unsigned int input_index, const std::shared_ptr<filtre> &component,
+                       const unsigned int component_input_index) {
+        _links.insert({input_index, {component_input_index, component}});
+
     }
+
+    /**
+     * Make a link from a internal component's output to a filter output
+     * @param output_index the filter output index
+     * @param component the component
+     * @param component_output_index the component output index
+     */
+    void makeOutputLink(const unsigned int output_index, const std::shared_ptr<filtre> &component,
+                        const unsigned int component_output_index) {
+        connecterSortie(component->getSortie(component_output_index), output_index);
+
+    }
+
 
 };
 

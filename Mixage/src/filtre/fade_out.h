@@ -17,9 +17,9 @@ public:
      */
     explicit fade_out(const int duration, const int start) : filtre_compose(1, 1) {
         auto fade_filter = std::make_shared<fade>(start, duration, 1, 0);
-        makeLink(0, fade_filter, 0);
-        connecterSortie(fade_filter->getSortie(0), 0);
         addComponent(fade_filter);
+        makeInputLink(0, fade_filter, 0);
+        makeOutputLink(0, fade_filter, 0);
     }
 };
 
