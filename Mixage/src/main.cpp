@@ -155,7 +155,20 @@ void q16_lecteur_fichier_stereo() {
 }
 
 void q17_mixage_piste_audio() {
-
+    lecteur_fichier lecteur_mono("../raw/mono.raw", 1);
+    lecteur_fichier lecteur_stereo("../raw/stereo.raw", 2);
+    mixeur mixeur_filter({0.5, 0.5, 0.5});
+    mixeur_filter.connecterEntree(lecteur_mono.getSortie(0), 0);
+    mixeur_filter.connecterEntree(lecteur_stereo.getSortie(0), 1);
+    mixeur_filter.connecterEntree(lecteur_stereo.getSortie(1), 2);
+    enregistreur_fichier enregistreur("../out/q17_mixage_piste_audio.raw", 1);
+    enregistreur.connecterEntree(mixeur_filter.getSortie(0), 0);
+    while (lecteur_mono.can_read() && lecteur_stereo.can_read()) {
+        lecteur_mono.calculer();
+        lecteur_stereo.calculer();
+        mixeur_filter.calculer();
+        enregistreur.calculer();
+    }
 }
 
 void q181_fade_in() {
@@ -210,6 +223,7 @@ main() {
     q15_compose();
     q16_lecteur_fichier_mono();
     q16_lecteur_fichier_stereo();
+    q17_mixage_piste_audio();
     q181_fade_in();
     q182_fade_out();
     q18_compression();
