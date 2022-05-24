@@ -21,6 +21,7 @@
 #include "filtre/fade_in.h"
 #include "filtre/fade_out.h"
 #include "filtre/compression.h"
+#include "filtre/echo.h"
 
 void
 q2_signal_constant() {
@@ -213,6 +214,20 @@ void q18_compression() {
     }
 }
 
+void q18_echo() {
+    lecteur_fichier lecteur("../raw/stereo.raw", 2);
+    enregistreur_fichier enregistreur("../out/q18_echo.raw", 1);
+
+    echo echo_filter(1, 0.5);
+    echo_filter.connecterEntree(lecteur.getSortie(0), 0);
+    enregistreur.connecterEntree(echo_filter.getSortie(0), 0);
+    while (lecteur.can_read()) {
+        lecteur.calculer();
+        echo_filter.calculer();
+        enregistreur.calculer();
+    }
+}
+
 int
 main() {
     q2_signal_constant();
@@ -227,5 +242,6 @@ main() {
     q181_fade_in();
     q182_fade_out();
     q18_compression();
+    q18_echo();
     return 0;
 }
