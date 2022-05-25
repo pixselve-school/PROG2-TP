@@ -22,6 +22,7 @@
 #include "filtre/fade_out.h"
 #include "filtre/compression.h"
 #include "filtre/echo.h"
+#include "filtre/panning.h"
 
 void
 q2_signal_constant() {
@@ -228,6 +229,28 @@ void q18_echo() {
     }
 }
 
+void q18_panning() {
+    lecteur_fichier lecteur("../raw/stereo.raw", 2);
+    enregistreur_fichier enregistreur("../out/q18_panning.raw", 2);
+
+    panning panning_filter;
+    harmonique harmonique_filter(1, 0);
+
+    panning_filter.connecterEntree(lecteur.getSortie(0), 0);
+    panning_filter.connecterEntree(lecteur.getSortie(1), 1);
+    panning_filter.connecterEntree(harmonique_filter.getSortie(0), 2);
+
+
+    enregistreur.connecterEntree(panning_filter.getSortie(0), 0);
+    enregistreur.connecterEntree(panning_filter.getSortie(1), 1);
+    while (lecteur.can_read()) {
+        lecteur.calculer();
+        harmonique_filter.calculer();
+        panning_filter.calculer();
+        enregistreur.calculer();
+    }
+}
+
 int
 main() {
     q2_signal_constant();
@@ -243,5 +266,6 @@ main() {
     q182_fade_out();
     q18_compression();
     q18_echo();
+    q18_panning();
     return 0;
 }

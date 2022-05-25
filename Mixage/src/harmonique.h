@@ -8,7 +8,7 @@
 
 #include "producteur_base.h"
 #include "constantes.h"
-#include <math.h>
+#include <cmath>
 
 class harmonique : public producteur_base {
 private:
